@@ -8,14 +8,18 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.sandeept.brainfkinterpreter.R;
+import com.sandeept.brainfkinterpreter.viewmodel.CodeDataViewModel;
 
 public class CodeFragment extends Fragment implements View.OnClickListener {
 
-    TextInputEditText editText;
-    StringBuilder stringBuilder;
+    private TextInputEditText codeField;
+    private TextInputEditText inputField;
+    private CodeDataViewModel codeDataViewModel;
 
     @Nullable
     @Override
@@ -24,7 +28,8 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
 
         View view = inflater.inflate(R.layout.fragment_code, container, false);
 
-        editText = view.findViewById(R.id.code_field);
+        codeField = view.findViewById(R.id.code_field);
+        inputField = view.findViewById(R.id.input_field);
 
         view.findViewById(R.id.plus_button).setOnClickListener(this);
         view.findViewById(R.id.minus_button).setOnClickListener(this);
@@ -34,57 +39,91 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.end_loop_button).setOnClickListener(this);
         view.findViewById(R.id.dot_button).setOnClickListener(this);
         view.findViewById(R.id.comma_button).setOnClickListener(this);
+        view.findViewById(R.id.run_button).setOnClickListener(this);
 
-        stringBuilder = new StringBuilder();
+        codeDataViewModel = new ViewModelProvider(requireActivity()).get(CodeDataViewModel.class);
+
+
+        if(codeDataViewModel.getCode() != null){
+
+            codeField.setText(codeDataViewModel.getCode());
+        }
+
+        if(codeDataViewModel.getInput() != null){
+
+            inputField.setText(codeDataViewModel.getInput());
+        }
 
         return view;
     }
 
     @Override
+    public void onStop(){
+
+        super.onStop();
+
+        if(codeField.getText() != null) {
+            codeDataViewModel.setCode(codeField.getText().toString());
+        }
+
+        if(inputField.getText() != null){
+            codeDataViewModel.setInput(inputField.getText().toString());
+        }
+    }
+
+    @Override
     public void onClick(View view){
 
-        editText.requestFocus();
+        codeField.requestFocus();
 
-        if(editText.getText() != null){
+        StringBuilder stringBuilder = new StringBuilder();
 
-            stringBuilder.append(editText.getText().toString());
+        if(codeField.getText() != null){
+            stringBuilder.append(codeField.getText().toString());
         }
 
         switch (view.getId()){
 
             case R.id.plus_button:
-                editText.setText(stringBuilder.append("+"));
+                codeField.setText(stringBuilder.append("+"));
                 break;
 
             case R.id.minus_button:
-                editText.setText(stringBuilder.append("-"));
+                codeField.setText(stringBuilder.append("-"));
                 break;
 
             case R.id.left_shift_button:
-                editText.setText(stringBuilder.append("<"));
+                codeField.setText(stringBuilder.append("<"));
                 break;
 
             case R.id.right_shift_button:
-                editText.setText(stringBuilder.append(">"));
+                codeField.setText(stringBuilder.append(">"));
                 break;
 
             case R.id.start_loop_button:
-                editText.setText(stringBuilder.append("["));
+                codeField.setText(stringBuilder.append("["));
                 break;
 
             case R.id.end_loop_button:
-                editText.setText(stringBuilder.append("]"));
+                codeField.setText(stringBuilder.append("]"));
                 break;
 
             case R.id.dot_button:
-                editText.setText(stringBuilder.append("."));
+                codeField.setText(stringBuilder.append("."));
                 break;
 
             case R.id.comma_button:
-                editText.setText(stringBuilder.append(","));
+                codeField.setText(stringBuilder.append(","));
                 break;
+
+            case R.id.run_button:
+
+                codeDataViewModel.setOutput("There we go!");
+
+                ViewPager2 viewPager2 = getActivity().findViewById(R.id.view_pager);
+                viewPager2.setCurrentItem(1);
         }
 
-        editText.setSelection(stringBuilder.length());
+        codeField.setSelection(stringBuilder.length());
     }
 }
