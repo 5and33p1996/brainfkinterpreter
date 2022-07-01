@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -13,6 +14,8 @@ import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.sandeept.brainfkinterpreter.R;
+import com.sandeept.brainfkinterpreter.bfinterpreter.BFInterpreter;
+import com.sandeept.brainfkinterpreter.bfinterpreter.BFResult;
 import com.sandeept.brainfkinterpreter.viewmodel.CodeDataViewModel;
 
 public class CodeFragment extends Fragment implements View.OnClickListener {
@@ -118,7 +121,26 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
 
             case R.id.run_button:
 
-                codeDataViewModel.setOutput("There we go!");
+                BFInterpreter interpreter = new BFInterpreter();
+
+                char[] inputs = null, code;
+
+                if(inputField.getText() != null){
+
+                    inputs = inputField.getText().toString().toCharArray();
+                }
+
+                if(codeField.getText() == null){
+
+                    Toast.makeText(getContext(), "No Code!", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                code = codeField.getText().toString().toCharArray();
+
+                BFResult result = interpreter.run(inputs, code);
+
+                codeDataViewModel.setOutput(result);
 
                 ViewPager2 viewPager2 = getActivity().findViewById(R.id.view_pager);
                 viewPager2.setCurrentItem(1);

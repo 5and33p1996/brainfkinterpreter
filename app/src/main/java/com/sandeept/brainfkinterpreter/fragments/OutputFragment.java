@@ -1,5 +1,6 @@
 package com.sandeept.brainfkinterpreter.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.sandeept.brainfkinterpreter.R;
+import com.sandeept.brainfkinterpreter.bfinterpreter.BFErrorCodes;
+import com.sandeept.brainfkinterpreter.bfinterpreter.BFResult;
 import com.sandeept.brainfkinterpreter.viewmodel.CodeDataViewModel;
 
 public class OutputFragment extends Fragment {
@@ -37,9 +40,22 @@ public class OutputFragment extends Fragment {
 
         CodeDataViewModel codeDataViewModel = new ViewModelProvider(requireActivity()).get(CodeDataViewModel.class);
 
-        if(codeDataViewModel.getOutput() != null){
+        if(codeDataViewModel.getOutput() == null){
 
-            outputField.setText(codeDataViewModel.getOutput());
+            return;
         }
+
+        BFResult result = codeDataViewModel.getOutput();
+
+        if(result.errorCode != BFErrorCodes.Success){
+
+            String output = result.errorCode.toString() + " at position " + result.position;
+
+            outputField.setTextColor(Color.RED);
+            outputField.setText(output);
+            return;
+        }
+
+        outputField.setText(result.result);
     }
 }
