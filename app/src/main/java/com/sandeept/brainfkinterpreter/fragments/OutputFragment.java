@@ -16,6 +16,8 @@ import com.sandeept.brainfkinterpreter.viewmodel.CodeDataViewModel;
 
 public class OutputFragment extends Fragment {
 
+    private TextView outputField;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -23,7 +25,15 @@ public class OutputFragment extends Fragment {
 
         View view = inflater.inflate(R.layout.fragment_output, container, false);
 
-        TextView outputField = view.findViewById(R.id.output_field);
+        outputField = view.findViewById(R.id.output_field);
+
+        return view;
+    }
+
+    @Override
+    public void onResume(){
+
+        super.onResume();
 
         CodeDataViewModel codeDataViewModel = new ViewModelProvider(requireActivity()).get(CodeDataViewModel.class);
 
@@ -31,7 +41,5 @@ public class OutputFragment extends Fragment {
 
             outputField.setText(codeDataViewModel.getOutput());
         }
-
-        return view;
     }
 }
