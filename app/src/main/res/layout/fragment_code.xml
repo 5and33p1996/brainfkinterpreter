@@ -74,6 +74,7 @@
                 android:layout_marginRight="4dp"
                 android:id="@+id/plus_button"
                 android:text="@string/plus"
+                android:textSize="20sp"
                 style="?android:attr/buttonBarButtonStyle"/>
 
             <com.google.android.material.button.MaterialButton
@@ -83,6 +84,7 @@
                 android:layout_marginRight="4dp"
                 android:id="@+id/minus_button"
                 android:text="@string/minus"
+                android:textSize="20sp"
                 style="?android:attr/buttonBarButtonStyle"/>
 
             <com.google.android.material.button.MaterialButton
@@ -92,6 +94,7 @@
                 android:layout_marginRight="4dp"
                 android:id="@+id/left_shift_button"
                 android:text="@string/left_shift"
+                android:textSize="20sp"
                 style="?android:attr/buttonBarButtonStyle"/>
 
             <com.google.android.material.button.MaterialButton
@@ -101,6 +104,7 @@
                 android:layout_marginRight="4dp"
                 android:id="@+id/right_shift_button"
                 android:text="@string/right_shift"
+                android:textSize="20sp"
                 style="?android:attr/buttonBarButtonStyle"/>
 
         </TableRow>
@@ -118,6 +122,7 @@
                 android:layout_marginRight="4dp"
                 android:id="@+id/start_loop_button"
                 android:text="@string/start_loop"
+                android:textSize="20sp"
                 style="?android:attr/buttonBarButtonStyle"/>
 
             <com.google.android.material.button.MaterialButton
@@ -127,6 +132,7 @@
                 android:layout_marginRight="4dp"
                 android:id="@+id/end_loop_button"
                 android:text="@string/end_loop"
+                android:textSize="20sp"
                 style="?android:attr/buttonBarButtonStyle"/>
 
             <com.google.android.material.button.MaterialButton
@@ -136,6 +142,7 @@
                 android:layout_marginRight="4dp"
                 android:id="@+id/dot_button"
                 android:text="@string/dot"
+                android:textSize="20sp"
                 style="?android:attr/buttonBarButtonStyle"/>
 
             <com.google.android.material.button.MaterialButton
@@ -145,6 +152,7 @@
                 android:layout_marginRight="4dp"
                 android:id="@+id/comma_button"
                 android:text="@string/comma"
+                android:textSize="20sp"
                 style="?android:attr/buttonBarButtonStyle"/>
 
         </TableRow>
