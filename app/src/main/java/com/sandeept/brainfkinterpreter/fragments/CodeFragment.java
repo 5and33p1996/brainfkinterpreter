@@ -34,6 +34,8 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
         codeField = view.findViewById(R.id.code_field);
         inputField = view.findViewById(R.id.input_field);
 
+        codeField.setShowSoftInputOnFocus(false);
+
         view.findViewById(R.id.plus_button).setOnClickListener(this);
         view.findViewById(R.id.minus_button).setOnClickListener(this);
         view.findViewById(R.id.left_shift_button).setOnClickListener(this);
@@ -43,6 +45,7 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.dot_button).setOnClickListener(this);
         view.findViewById(R.id.comma_button).setOnClickListener(this);
         view.findViewById(R.id.run_button).setOnClickListener(this);
+        view.findViewById(R.id.backspace_button).setOnClickListener(this);
 
         codeDataViewModel = new ViewModelProvider(requireActivity()).get(CodeDataViewModel.class);
 
@@ -74,49 +77,79 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
         }
     }
 
+    private String updateCodeString(String s){
+
+        int cursorPosition = codeField.getSelectionEnd();
+        String code;
+
+        if(codeField.getText() == null || codeField.getText().length() == 0){
+
+            return s;
+        }
+
+        code = codeField.getText().toString();
+
+        return code.substring(0, cursorPosition) + s + code.substring(cursorPosition);
+    }
+
     @Override
     public void onClick(View view){
 
         codeField.requestFocus();
 
-        StringBuilder stringBuilder = new StringBuilder();
-
-        if(codeField.getText() != null){
-            stringBuilder.append(codeField.getText().toString());
-        }
+        String ch = null;
 
         switch (view.getId()){
 
             case R.id.plus_button:
-                codeField.setText(stringBuilder.append("+"));
+                ch = "+";
                 break;
 
             case R.id.minus_button:
-                codeField.setText(stringBuilder.append("-"));
+                ch = "-";
                 break;
 
             case R.id.left_shift_button:
-                codeField.setText(stringBuilder.append("<"));
+                ch = "<";
                 break;
 
             case R.id.right_shift_button:
-                codeField.setText(stringBuilder.append(">"));
+                ch = ">";
                 break;
 
             case R.id.start_loop_button:
-                codeField.setText(stringBuilder.append("["));
+                ch = "[";
                 break;
 
             case R.id.end_loop_button:
-                codeField.setText(stringBuilder.append("]"));
+                ch = "]";
                 break;
 
             case R.id.dot_button:
-                codeField.setText(stringBuilder.append("."));
+                ch = ".";
                 break;
 
             case R.id.comma_button:
-                codeField.setText(stringBuilder.append(","));
+                ch = ",";
+                break;
+
+            case R.id.backspace_button:
+
+                if(codeField.getText() == null || codeField.getText().length() == 0){
+                    break;
+                }
+
+                int cursorPosition = codeField.getSelectionEnd();
+                String curCode = codeField.getText().toString();
+
+                if(cursorPosition == 0){
+                    break;
+                }
+
+                curCode = curCode.substring(0, cursorPosition - 1) + curCode.substring(cursorPosition);
+
+                codeField.setText(curCode);
+                codeField.setSelection(cursorPosition - 1);
                 break;
 
             case R.id.run_button:
@@ -130,7 +163,7 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
                     inputs = inputField.getText().toString().toCharArray();
                 }
 
-                if(codeField.getText() == null){
+                if(codeField.getText() == null || codeField.getText().length() == 0){
 
                     Toast.makeText(getContext(), "No Code!", Toast.LENGTH_SHORT).show();
                     return;
@@ -146,6 +179,10 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
                 viewPager2.setCurrentItem(1);
         }
 
-        codeField.setSelection(stringBuilder.length());
+        if(ch != null) {
+            String result = updateCodeString(ch);
+            codeField.setText(result);
+            codeField.setSelection(result.length());
+        }
     }
 }
