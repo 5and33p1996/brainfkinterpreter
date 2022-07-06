@@ -1,6 +1,5 @@
 package com.sandeept.brainfkinterpreter;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 

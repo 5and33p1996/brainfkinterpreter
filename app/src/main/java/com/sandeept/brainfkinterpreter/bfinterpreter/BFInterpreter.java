@@ -4,9 +4,6 @@ import java.util.Stack;
 
 public class BFInterpreter {
     private int numCells = 30000;
-    private byte[] cells;
-
-    private StringBuilder result;
 
     public boolean setNumCells(int numCells){
 
@@ -20,8 +17,8 @@ public class BFInterpreter {
 
     public BFResult run(char[] inputs, char[] code){
 
-        cells = new byte[numCells];
-        result = new StringBuilder();
+        byte[] cells = new byte[numCells];
+        StringBuilder result = new StringBuilder();
 
         int cellPointer = 0, codePointer = 0, inputPointer = 0, numOpenLoops = 0;
         Stack<Integer> loopStack = new Stack<>();
@@ -56,7 +53,7 @@ public class BFInterpreter {
 
             else if(code[codePointer] == '.' && !skipToCloseLoop){
 
-                result.append((char)cells[cellPointer]);
+                result.append((char) cells[cellPointer]);
             }
 
             else if(code[codePointer] == ',' && !skipToCloseLoop){
@@ -93,13 +90,12 @@ public class BFInterpreter {
                     if(numOpenLoops != 0){
                         numOpenLoops--;
                         codePointer++;
-                        continue;
                     }
                     else{
                         codePointer++;
                         skipToCloseLoop = false;
-                        continue;
                     }
+                    continue;
                 }
 
                 if(loopStack.isEmpty()){
