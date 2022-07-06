@@ -58,7 +58,8 @@
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:id="@+id/run_button"
-                android:text="@string/run"/>
+                android:text="@string/run"
+                app:icon="@drawable/ic_baseline_play_arrow_24"/>
 
         </TableRow>
 
