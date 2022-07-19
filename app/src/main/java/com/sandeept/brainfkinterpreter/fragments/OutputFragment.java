@@ -51,7 +51,6 @@ public class OutputFragment extends Fragment {
 
             String output = result.errorCode.toString() + " at position " + result.position;
 
-            outputField.setTextColor(Color.RED);
             outputField.setText(output);
             return;
         }
