@@ -16,6 +16,10 @@
     <string name="start_loop">[</string>
     <string name="end_loop">]</string>
 
+    <string name="space_button_desc">Space Button</string>
+    <string name="enter_button_desc">Enter Button</string>
+    <string name="backspace_desc">Back Space Button</string>
+
     <string name="settings">Settings</string>
     <string name="about">About</string>
 </resources>

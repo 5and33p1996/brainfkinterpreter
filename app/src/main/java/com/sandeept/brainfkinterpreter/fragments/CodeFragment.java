@@ -46,6 +46,8 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.comma_button).setOnClickListener(this);
         view.findViewById(R.id.run_button).setOnClickListener(this);
         view.findViewById(R.id.backspace_button).setOnClickListener(this);
+        view.findViewById(R.id.space_button).setOnClickListener(this);
+        view.findViewById(R.id.enter_button).setOnClickListener(this);
 
         codeDataViewModel = new ViewModelProvider(requireActivity()).get(CodeDataViewModel.class);
 
@@ -131,6 +133,14 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
 
             case R.id.comma_button:
                 ch = ",";
+                break;
+
+            case R.id.enter_button:
+                ch = "\n";
+                break;
+
+            case R.id.space_button:
+                ch = " ";
                 break;
 
             case R.id.backspace_button:
