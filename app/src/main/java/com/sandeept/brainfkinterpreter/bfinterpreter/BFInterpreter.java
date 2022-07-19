@@ -115,7 +115,7 @@ public class BFInterpreter {
             codePointer++;
         }
 
-        if(!loopStack.isEmpty()){
+        if(!loopStack.isEmpty() || skipToCloseLoop){
 
             return new BFResult(null, BFErrorCodes.NoCloseOfLoop, codePointer);
         }
