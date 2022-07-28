@@ -22,4 +22,11 @@
 
     <string name="settings">Settings</string>
     <string name="about">About</string>
+
+    <string name="cell_size_settings">Choose Cell Size</string>
+    <string name="eight_bit">8 - bit</string>
+    <string name="sixteen_bit">16 - bit</string>
+    <string name="thritytwo_bit">32 - bit</string>
+    <string name="number_of_cells_colon">Number of Cells :</string>
+    <string name="number_of_cells">Number of Cells</string>
 </resources>

@@ -4,6 +4,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentActivity;
 import androidx.viewpager2.widget.ViewPager2;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -45,7 +46,8 @@ public class MainActivity extends FragmentActivity implements Toolbar.OnMenuItem
     @Override
     public boolean onMenuItemClick(MenuItem item) {
         if(item.getItemId() == R.id.settings){
-            Toast.makeText(this, "Settings!", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, SettingsActivity.class);
+            startActivity(intent);
             return true;
         }
         else if(item.getItemId() == R.id.about){
