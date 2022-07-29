@@ -68,6 +68,13 @@
             android:textSize="20sp"
             android:id="@+id/thirtytwo_bit_radio"/>
 
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sixtyfour_bit"
+            android:textSize="20sp"
+            android:id="@+id/sixtyfour_bit_radio"/>
+
     </RadioGroup>
 
     <LinearLayout
@@ -101,11 +108,14 @@
             android:layout_marginLeft="10dp"/>
 
         <EditText
-            android:layout_width="50dp"
+            android:layout_width="wrap_content"
+            android:minWidth="70dp"
             android:layout_height="wrap_content"
-            android:textSize="24sp"
-            android:autofillHints="@string/number_of_cells"
-            android:inputType="number" />
+            android:id="@+id/num_cells_field"
+            android:inputType="number"
+            android:autofillHints="@string/number_of_cells" />
+
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -27,6 +27,11 @@
     <string name="eight_bit">8 - bit</string>
     <string name="sixteen_bit">16 - bit</string>
     <string name="thritytwo_bit">32 - bit</string>
+    <string name="sixtyfour_bit">64 - bit</string>
     <string name="number_of_cells_colon">Number of Cells :</string>
     <string name="number_of_cells">Number of Cells</string>
+
+    <string name="settings_pref">SettingsPreferences</string>
+    <string name="num_cells_key">NumCellsKey</string>
+    <string name="cell_size_key">CellSizeKey</string>
 </resources>
