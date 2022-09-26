@@ -5,9 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
+import com.google.android.material.appbar.MaterialToolbar;
 
 public class SettingsActivity extends AppCompatActivity {
 
@@ -36,6 +39,10 @@ public class SettingsActivity extends AppCompatActivity {
         numCellsField.setText(Integer.toString(sharedPreferences.getInt(getString(R.string.num_cells_key), 30000)));
 
         checkCellSizeRadioButton();
+
+        MaterialToolbar toolbar = findViewById(R.id.settings_material_tool_bar);
+        setSupportActionBar(toolbar);
+        toolbar.setNavigationOnClickListener(v -> finish());
     }
 
     @Override
