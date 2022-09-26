@@ -16,6 +16,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.sandeept.brainfkinterpreter.R;
 import com.sandeept.brainfkinterpreter.bfinterpreter.BFInterpreter;
 import com.sandeept.brainfkinterpreter.bfinterpreter.BFResult;
+import com.sandeept.brainfkinterpreter.utils.SharedPrefUtils;
 import com.sandeept.brainfkinterpreter.viewmodel.CodeDataViewModel;
 
 public class CodeFragment extends Fragment implements View.OnClickListener {
@@ -180,6 +181,12 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
                 }
 
                 code = codeField.getText().toString().toCharArray();
+
+                int numCells = SharedPrefUtils.getIntPreference(getString(R.string.num_cells_key), 30000, getContext());
+                int cellSize = SharedPrefUtils.getIntPreference(getString(R.string.cell_size_key), 8, getContext());
+
+                interpreter.setCellSize(cellSize);
+                interpreter.setNumCells(numCells);
 
                 BFResult result = interpreter.run(inputs, code);
 
