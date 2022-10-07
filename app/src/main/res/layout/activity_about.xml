@@ -39,7 +39,8 @@
                 android:layout_height="wrap_content"
                 android:text="@string/about_body"
                 android:textSize="20sp"
-                android:autoLink="web"/>
+                android:autoLink="web"
+                android:layout_marginTop="10dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -47,7 +48,7 @@
                 android:layout_gravity="center"
                 android:text="@string/designed_by"
                 android:textSize="18sp"
-                android:layout_marginTop="30dp"/>
+                android:layout_marginTop="40dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
