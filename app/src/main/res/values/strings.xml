@@ -34,4 +34,18 @@
     <string name="settings_pref">SettingsPreferences</string>
     <string name="num_cells_key">NumCellsKey</string>
     <string name="cell_size_key">CellSizeKey</string>
+
+
+    <string name="about_body">This application is an interpreter for the Brainfuck programming language. The
+        language operates on the basis of cells of a fixed size. The number of cells and the size of each
+        cell can be changed from the settings.\n\n
+
+        More information about the language, its syntax and its various commands can be found here
+        -\n
+
+        https://en.wikipedia.org/wiki/Brainfuck
+    </string>
+
+    <string name="designed_by"><font color="#673AB7"><b>Designed and developed by</b></font></string>
+    <string name="signature"><font color="#673AB7"><b>Sandeep Tadepalli</b></font></string>
 </resources>

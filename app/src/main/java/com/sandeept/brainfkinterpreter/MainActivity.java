@@ -51,7 +51,8 @@ public class MainActivity extends FragmentActivity implements Toolbar.OnMenuItem
             return true;
         }
         else if(item.getItemId() == R.id.about){
-            Toast.makeText(this, "About", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(this, AboutActivity.class);
+            startActivity(intent);
             return true;
         }
 
