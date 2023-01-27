@@ -1,6 +1,9 @@
 package com.sandeept.brainfkinterpreter.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,9 +15,10 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.sandeept.brainfkinterpreter.InterpreterThread;
 import com.sandeept.brainfkinterpreter.R;
-import com.sandeept.brainfkinterpreter.bfinterpreter.BFInterpreter;
 import com.sandeept.brainfkinterpreter.bfinterpreter.BFResult;
 import com.sandeept.brainfkinterpreter.utils.SharedPrefUtils;
 import com.sandeept.brainfkinterpreter.viewmodel.CodeDataViewModel;
@@ -24,6 +28,25 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
     private TextInputEditText codeField;
     private TextInputEditText inputField;
     private CodeDataViewModel codeDataViewModel;
+
+    private MaterialButton runButton;
+
+    Handler uiHandler = new Handler(Looper.getMainLooper()){
+        @Override
+        public void handleMessage(Message msg){
+
+            if(msg.what == 0){
+
+                //Message after executing bf code
+                codeDataViewModel.setOutput((BFResult) msg.obj);
+
+                ViewPager2 viewPager2 = getActivity().findViewById(R.id.view_pager);
+                viewPager2.setCurrentItem(1);
+
+                runButton.setEnabled(true);
+            }
+        }
+    };
 
     @Nullable
     @Override
@@ -37,6 +60,9 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
 
         codeField.setShowSoftInputOnFocus(false);
 
+        runButton = view.findViewById(R.id.run_button);
+        runButton.setOnClickListener(this);
+
         view.findViewById(R.id.plus_button).setOnClickListener(this);
         view.findViewById(R.id.minus_button).setOnClickListener(this);
         view.findViewById(R.id.left_shift_button).setOnClickListener(this);
@@ -45,7 +71,6 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
         view.findViewById(R.id.end_loop_button).setOnClickListener(this);
         view.findViewById(R.id.dot_button).setOnClickListener(this);
         view.findViewById(R.id.comma_button).setOnClickListener(this);
-        view.findViewById(R.id.run_button).setOnClickListener(this);
         view.findViewById(R.id.backspace_button).setOnClickListener(this);
         view.findViewById(R.id.space_button).setOnClickListener(this);
         view.findViewById(R.id.enter_button).setOnClickListener(this);
@@ -165,7 +190,7 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
 
             case R.id.run_button:
 
-                BFInterpreter interpreter = new BFInterpreter();
+                runButton.setEnabled(false);
 
                 char[] inputs = null, code;
 
@@ -185,15 +210,18 @@ public class CodeFragment extends Fragment implements View.OnClickListener {
                 int numCells = SharedPrefUtils.getIntPreference(getString(R.string.num_cells_key), 30000, getContext());
                 int cellSize = SharedPrefUtils.getIntPreference(getString(R.string.cell_size_key), 8, getContext());
 
-                interpreter.setCellSize(cellSize);
-                interpreter.setNumCells(numCells);
+                char[] inputCopy, codeCopy;
 
-                BFResult result = interpreter.run(inputs, code);
+                inputCopy = new char[inputs.length];
+                codeCopy = new char[code.length];
 
-                codeDataViewModel.setOutput(result);
+                System.arraycopy(inputs, 0, inputCopy, 0, inputs.length);
+                System.arraycopy(code, 0, codeCopy, 0, code.length);
 
-                ViewPager2 viewPager2 = getActivity().findViewById(R.id.view_pager);
-                viewPager2.setCurrentItem(1);
+                InterpreterThread interpreterThread = new InterpreterThread(uiHandler);
+                interpreterThread.setData(inputs, code, numCells, cellSize);
+
+                interpreterThread.start();
         }
 
         if(ch != null) {
